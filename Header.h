@@ -20,6 +20,12 @@ public:
 	int Readingas2(std::string raktas);
 	int Readingas3(std::string raktas);
 };
+struct transaction {
+	std::string transactionID;
+	std::string receiver;
+	std::string deliverer;
+	int sum;
+};
 struct blockchainas {
 	std::string prevHash;
 	int timestamp;
@@ -27,10 +33,5 @@ struct blockchainas {
 	std::string MRH;
 	int Nonce;
 	int DifTarget;
-	struct transaction {
-		std::string transactionID;
-		std::string receiver;
-		std::string deliverer;
-		int sum;
-	};
+	transaction T[100];
 };
