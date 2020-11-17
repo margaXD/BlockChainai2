@@ -1,151 +1,208 @@
 #include "Header.h"
 
-int main()
-{
-	/* 
-	
-	
-	
-	GENERATION PHASE
-	
-	
-	
-	*/
-	const int MAX = 26;
-	char alphabet[MAX] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
-					  'h', 'i', 'j', 'k', 'l', 'm', 'n',
-					  'o', 'p', 'q', 'r', 's', 't', 'u',
-					  'v', 'w', 'x', 'y', 'z' };
-	// hashing seed factors
+int hashas::Readingas(std::string raktas) {
+	int ASCIIValue = 0;
+	int ilgis = raktas.length();
+
+	std::string zodis;
+	for (int i = 0; i < raktas.length(); i++)
+	{
+		ASCIIValue = ASCIIValue + (int)raktas[i];
+	}
+	return ASCIIValue;
+}
+int hashas::Readingas2(std::string raktas) {
+	int NumberOfLetterA = 0;
+	for (int i = 0; i < raktas.length(); i++)
+	{
+		if (raktas[i] == 'A' || raktas[i] == 'a') NumberOfLetterA++;
+	}
+	return NumberOfLetterA;
+}
+int hashas::Readingas3(std::string raktas) {
+	int NumberOfLetterE = 0;
+	for (int i = 0; i < raktas.length(); i++)
+	{
+		if (raktas[i] == 'E' || raktas[i] == 'e') NumberOfLetterE++;
+	}
+	return NumberOfLetterE;
+}
+std::string hashas::Hashavimas(long long int UniqueHashSeed, int skaitliukasSPACE, int maxValue, int charValue, int NumberOfLetterA, int NumberOfNumber1) {
+	std::string GalutinisHashas = "";
+	std::string Hashavimas[8];
+	std::stringstream HexStream;
+	HexStream << std::hex << UniqueHashSeed;
+	Hashavimas[0] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 154800;
+	Hashavimas[1] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 595200;
+	Hashavimas[2] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 981004;
+	Hashavimas[3] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 855002;
+	Hashavimas[4] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 999009;
+	Hashavimas[5] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 1000002;
+	Hashavimas[6] = HexStream.str();
+	HexStream << std::hex << UniqueHashSeed * 9508;
+	Hashavimas[7] = HexStream.str();
+	for (int i = 0; i < 8; i++)
+	{
+		GalutinisHashas = GalutinisHashas + Hashavimas[i];
+	}
+	if (GalutinisHashas.length() > 64) {
+		GalutinisHashas = GalutinisHashas.erase(64, GalutinisHashas.length());
+	}
+	return GalutinisHashas;
+
+}
+transaction tAction(users Users) {
+	transaction tAction1;
+	int skaitliukas = 50;
 	int skaitliukasSPACE = 1; // number of spaces in document + 1
 	int maxValue = 1; // ASCII sum of all the characters in document + 1
 	int charValue = 1; // Number of characters in document + 1
 	int NumberOfLetterA = 1; // Number of letter a in document + 1
 	int NumberOfLetterE = 1; // Number of number 1 in document + 1
 	int value;
-	blockchainas blockChain[10];
 	hashas hashasX;
-	std::string publicKeyArray[1000];
-	std::string transactionHashArray[10000];
-	std::string transactionLines[10000];
+	std::string Hashed;
+	std::string Hash;
 	long long int UniqueHashSeed;
-	std::ofstream GenUser("users.txt");
-	std::ofstream GentAction("transactions.txt");
-	for (int i = 0; i < 1000; i++) {
-			std::string res = "";
-			for (int j = 0; j < 10; j++){
-				res = res + alphabet[rand() % MAX];
-			}
-			GenUser << res << " ";
-			charValue = charValue + res.length();
-			value = hashasX.Readingas(res);
-			NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(res);
-			NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(res);
-			maxValue = maxValue + value;
-			UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
-			std::string hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
-			GenUser << hash << " ";
-			publicKeyArray[i] = hash;
-			int suma = rand() % 1000000 + 100;
-			GenUser << suma << std::endl;
-			skaitliukasSPACE = 1; // number of spaces in document + 1
-			maxValue = 1; // ASCII sum of all the characters in document + 1
-			charValue = 1; // Number of characters in document + 1
-			NumberOfLetterA = 1; // Number of letter a in document + 1
-			NumberOfLetterE = 1; // Number of number 1 in document + 1
-			int value = 0;
-	}
+	srand((unsigned)time(0));
 	for (int i = 0; i < 10000; i++) {
-		int seed1 = rand() % 999 + 1;
-		int seed2 = rand() % 999 + 1;
-		if (seed1 == seed2) seed2 = rand() % 999 + 1;
-		int weight = rand() % 1000000 + 100;
-		std::string res1 = publicKeyArray[seed1] + " " + publicKeyArray[seed2] + " " + std::to_string(weight);
-		std::cout << res1 << std::endl;
-		charValue = charValue + res1.length();
-		value = hashasX.Readingas(res1);
-		NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(res1);
-		NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(res1);
+		tAction1.deliverer[i] = Users.sum[rand() % 999];
+		tAction1.receiver[i] = Users.sum[rand() % 999];
+		tAction1.sum[i] = (rand() % 100) + 1;
+		Hashed = tAction1.deliverer[i] + tAction1.receiver[i] + std::to_string(tAction1.sum[i]);
+		charValue = charValue + Hashed.length();
+		value = hashasX.Readingas(Hashed);
+		NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(Hashed);
+		NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(Hashed);
 		maxValue = maxValue + value;
 		UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
-		std::string hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
-		transactionHashArray[i] = hash;
-		GentAction << hash << " ";
-		GentAction << publicKeyArray[seed1] << " ";
-		GentAction << publicKeyArray[seed2] << " ";
-		GentAction << weight << std::endl;
+		Hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
+		tAction1.transactionID[i] = Hash;
 	}
-	/*
-	
-	
-	
-	END GENERATION PHASE
-
-
-
-	*/
-	/*
-	
-	
-	
-	BLOCK CHAIN GENERATION PHASE
-	
-	
-	
-	*/
-	/*TRANSAKCIJU PASIRINKIMAS*/
-	int transactionSeeds[100];
-	for (int i = 0; i < 100; i++)
-	{
-		transactionSeeds[i] = rand() % 9999;
+	return tAction1;
+}
+users BeUsers() {
+	users users1;
+	int skaitliukas = 50;
+	int skaitliukasSPACE = 1; // number of spaces in document + 1
+	int maxValue = 1; // ASCII sum of all the characters in document + 1
+	int charValue = 1; // Number of characters in document + 1
+	int NumberOfLetterA = 1; // Number of letter a in document + 1
+	int NumberOfLetterE = 1; // Number of number 1 in document + 1
+	int value;
+	hashas hashasX;
+	std::string Hashed;
+	std::string Hash;
+	long long int UniqueHashSeed;
+	const int MAX = 26;
+	char alphabet[MAX] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+					  'h', 'i', 'j', 'k', 'l', 'm', 'n',
+					  'o', 'p', 'q', 'r', 's', 't', 'u',
+					  'v', 'w', 'x', 'y', 'z' };
+	std::string name;
+	srand((unsigned)time(0));
+	for (int i = 0; i < 1000; i++) {
+		name = "";
+		for (int j = 0; j < 10; j++) {
+			name += alphabet[(rand() % 26) + 0];
+		}
+		users1.name[i] = name + std::to_string(i);
+		charValue = charValue + users1.name[i].length();
+		value = hashasX.Readingas(users1.name[i]);
+		NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(users1.name[i]);
+		NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(users1.name[i]);
+		maxValue = maxValue + value;
+		UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
+		Hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
+		users1.publicKey[i] = Hash;
+		users1.sum[i] = (rand() % 1000) + 10;
 	}
-	for (int x = 0; x < 2; x++) {
-		for (int i = 0; i < 100; i++)
-		{
-			for (int j = i; j < 100; j++)
-			{
-				if (transactionSeeds[i] == transactionSeeds[j]) transactionSeeds[j] = rand() % 9999;
+	return users1;
+}
+std::string ProofOfWork(blockChain BlockChain[], int count, block Block[], int ccount) {
+	int skaitliukas = 100000;
+	hashas hashasX;
+	int skaitliukasSPACE = 1; // number of spaces in document + 1
+	int maxValue = 1; // ASCII sum of all the characters in document + 1
+	int charValue = 1; // Number of characters in document + 1
+	int NumberOfLetterA = 1; // Number of letter a in document + 1
+	int NumberOfLetterE = 1; // Number of number 1 in document + 1
+	int value;
+	long long int UniqueHashSeed;
+	Block[0].PBH = "";
+	if (count == 0) {
+		for (int i = 0; i < 64; i++) {
+			Block[0].PBH = Block[0].PBH + "0";
+		}
+	}
+	else Block[count].PBH = BlockChain[ccount - 1].Hash;
+	Block[count].timestamp = std::time(nullptr);
+	Block[count].version = std::to_string(count) + ".0";
+	Block[count].diffTarget = "0";
+	int sizer = Block[count].diffTarget.size();
+	srand((unsigned)time(0));
+	std::string hash;
+	for (int i = 0; i < skaitliukas; i++) {
+		Block[count].nonce = rand() % 1000000;
+		std::string Hash = Block[count].diffTarget + Block[count].MRH[0] + std::to_string(Block[count].nonce) + Block[count].PBH + Block[count].timestamp + Block[count].version;
+		std::string Hashed;
+		charValue = charValue + Hash.length();
+		value = hashasX.Readingas(Hash);
+		NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(Hash);
+		NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(Hash);
+		maxValue = maxValue + value;
+		UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
+		hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
+		if (hash.substr(1, sizer) == Block[count].diffTarget) return hash;
+	}
+	std::cout << "Code ran into a problem" << std::endl;
+	ProofOfWork(BlockChain, count, Block, ccount);
+}
+
+void MT(block Block[], int count) {
+	int skaitliukas = 50;
+	int skaitliukasSPACE = 1; // number of spaces in document + 1
+	int maxValue = 1; // ASCII sum of all the characters in document + 1
+	int charValue = 1; // Number of characters in document + 1
+	int NumberOfLetterA = 1; // Number of letter a in document + 1
+	int NumberOfLetterE = 1; // Number of number 1 in document + 1
+	int value;
+	hashas hashasX;
+	long long int UniqueHashSeed;
+	std::string Hashed;
+	std::string Hash;
+	for (int i = 0; i < 100; i += 2) {
+		Hash = Block[count].tAction[i] + Block[count].tAction[i + 1];
+		charValue = charValue + Hashed.length();
+		value = hashasX.Readingas(Hashed);
+		NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(Hashed);
+		NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(Hashed);
+		maxValue = maxValue + value;
+		UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
+		Hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
+		Block[count].MRH[i / 2] = Hash;
+	}
+	while (skaitliukas != 1) {
+		for (int i = 0; i < skaitliukas; i++) {
+			Hash = Block[count].MRH[i] + Block[count].MRH[i + 1];
+			charValue = charValue + Hashed.length();
+			value = hashasX.Readingas(Hashed);
+			NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(Hashed);
+			NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(Hashed);
+			maxValue = maxValue + value;
+			UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
+			Hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
+			Block[count].MRH[i] = Hash;
+			for (int j = i + 1; j < skaitliukas - 1; j++) {
+				Block[count].MRH[j] = Block[count].MRH[j + 1];
 			}
+			skaitliukas--;
 		}
-	}
-	/*TRANSAKCIJU PASIRINKIMAS*/
-	/*TRANSAKCIJU IDEJIMAS I BLOKA*/
-	std::ifstream user("users.txt");
-	std::ifstream tAction("transactions.txt");
-	std::string reciever, deliverer;
-	int weight1;
-	int skaitliukas = 0;
-	for (int i = 0; i < 10000; i++) {
-		tAction >> reciever;
-		tAction >> deliverer;
-		tAction >> weight1;
-		if (i == transactionSeeds[i]) {
-			blockChain[0].T[skaitliukas].deliverer = deliverer;
-			blockChain[0].T[skaitliukas].receiver = reciever;
-			blockChain[0].T[skaitliukas].sum = weight1;
-		}
-	}
-	for (int i = 0; i < 100; i++) {
-		blockChain[0].T[i].transactionID = transactionHashArray[transactionSeeds[i]];
-	}
-	std::string finalHash = "";
-	for (int i = 0; i < 100; i++) {
-		finalHash = finalHash + blockChain[0].T[i].transactionID;
-	}
-	charValue = charValue + finalHash.length();
-	value = hashasX.Readingas(finalHash);
-	NumberOfLetterA = NumberOfLetterA + hashasX.Readingas2(finalHash);
-	NumberOfLetterE = NumberOfLetterE + hashasX.Readingas3(finalHash);
-	maxValue = maxValue + value;
-	UniqueHashSeed = skaitliukasSPACE + maxValue + charValue * NumberOfLetterA * NumberOfLetterE;
-	std::string hash = hashasX.Hashavimas(UniqueHashSeed, skaitliukasSPACE, maxValue, charValue, NumberOfLetterA, NumberOfLetterE);
-	/*TRANSAKCIJU IDEJIMAS I BLOKA*/
-	/*GENESIS BLOCK KURIMAS*/
-	blockChain[0].MRH = hash;
-	blockChain[0].prevHash = "0000000000000000000000000000000000000000000000000000000000000000";
-	for (int i = 0; i < 10; i++)
-	{
-		blockChain[i].version = std::to_string(i) + ".0";
-		blockChain[i].timestamp = std::time(nullptr);
 	}
 }
