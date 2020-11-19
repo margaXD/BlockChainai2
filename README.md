@@ -10,3 +10,8 @@ MerkleRootHash, akivaizdu, randa Merkle Root Hashą.<br>
 
 # 0.1.2
 Papildyta v0.1 versija.<br>
+
+## V 0.2
+Šioje versijoje MerkleRootHash funkcija pakeista į MerkleTree funkcija (MT).<br>
+Taip pat šioje versijoje realizuotas transakcijų verifikavimas - Balanso tikrinimas ir transakcijų hasho tikrinimas.<br>
+Patobulinta mining a.k.a ProofOfWork funckija.
