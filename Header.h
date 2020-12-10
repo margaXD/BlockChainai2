@@ -1,53 +1,45 @@
-#include <cstdlib>
 #include <iostream>
 #include <string>
+#include <vector>
 #include <fstream>
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <sstream>
-#include <iomanip>
-#include <ctime>
+#include <math.h>
 #include <chrono>
-#include <time.h>
+#include <ctime>
 #include <streambuf>
-#include <cmath>
-using namespace std::chrono;
-class hashas {
-
-public:
-	int Readingas(std::string raktas);
-	std::string Hashavimas(long long int UniqueHashSeed, int skaitliukasSPACE, int maxValue, int charValue, int NumberOfLetterA, int NumberOfLetterE);
-	std::string Hashavimas2(long long int UniqueHashSeed, int charValue, int NumberOfLetterA, int NumberOfLetterE);
-	int Readingas2(std::string raktas);
-	int Readingas3(std::string raktas);
-};
-
-struct transaction {
-	std::string transactionID[10000];
-	std::string receiver[10000];
-	std::string deliverer[10000];
-	int sum[10000];
-};
+#include <stdlib.h>
+#include <cstdlib>
+#include <bitcoin/bitcoin.hpp>
+std::string Hash(std::string line);
+char GetChar(int r1, char r11);
 struct users {
-	std::string name[1000];
-	std::string publicKey[1000];
-	int sum[1000];
+	std::string name;
+	std::string publicKey;
+	double sum;
 };
-struct block {
-	std::string tAction[100];
+struct block
+{
 	std::string PBH;
-	std::string timestamp;
+	int timestamp;
 	std::string version;
 	std::string MRH[50];
 	int nonce;
-	std::string diffTarget;
-};
-struct blockChain {
-	std::string Hash;
+	std::string DiffTarget;
 	std::string tAction[100];
 };
-
-transaction tAction(users Users);
-users BeUsers();
-std::string ProofOfWork(blockChain BlockChain[], int count, block Block[], int ccount);
-void MT(block Block[], int count);
+struct transaction
+{
+	std::string tActionID[1000];
+	std::string deliverer[1000];
+	std::string receiver[1000];
+	double sum[1000];
+};
+struct blockchain
+{
+	std::string Hash;
+	std::string Transactions[100];
+};
+void MT(block tActions[], int blocks);
+void BeUser(users A[]);
+transaction tActionFunc(users A[]);
+std::string ProofOfWork(block tActions[], blockchain bChain[], int blocks, int c, int& skaitliukas);
+bc::hash_digest create_merkle(bc::hash_list& merkle);
