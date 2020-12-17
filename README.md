@@ -14,4 +14,7 @@ Papildyta v0.1 versija.<br>
 ## V 0.2
 Šioje versijoje MerkleRootHash funkcija pakeista į MerkleTree funkcija (MT).<br>
 Taip pat šioje versijoje realizuotas transakcijų verifikavimas - Balanso tikrinimas ir transakcijų hasho tikrinimas.<br>
-Patobulinta mining a.k.a ProofOfWork funckija.
+Patobulinta mining a.k.a ProofOfWork funckija.<br>
+
+## V 0.3
+Šioje versijoje panaudota libbitcoin biblioteka ir create_merkle funkcija.<br>
